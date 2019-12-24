@@ -1,0 +1,4 @@
+requests==2.18.4
+pyaml==18.11.0
+configparser==3.5.0
+PyMySQL==0.7.11
