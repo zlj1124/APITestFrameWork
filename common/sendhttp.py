@@ -7,11 +7,11 @@ from functools import partial
 
 
 class Send_requset(object):
-    def __init__(self,procotol):
+    def __init__(self):
         gt = ReadYaml()
-        self.host = gt.content["jing5host"]
-        self.path = gt.content["login_path"]
-        host_path = "".join([self.host, self.path])
+        self.host = gt.get_datas["jing5host"]
+        self.path = gt.get_datas["login_path"]
+        self.host_path = "".join([self.host, self.path])
         self.headers = {
             # "Content-Type": "application/json;charset=UTF-8",
             "Accept": "application/json, text/plain, */*",
@@ -21,7 +21,13 @@ class Send_requset(object):
             # "Chrome/71.0.3578.98 Safari/537.36"
             }
         self.data_sucess = gt.content["data_sucess"]
-        response = requests.post(url=host_path,data=self.data_sucess )
+        
+    @property
+    def send_request(self):
+            
+        response = requests.post(url=self.host_path,data=self.data_sucess )
         auth = "JWT " + response.json()["token"]
         self.headers["Authorization"] = auth
-        self.send_request=partial(requests.request,headers=self.headers)
+        self.send_http=partial(requests.request,headers=self.headers)
+        
+        return self.send_http

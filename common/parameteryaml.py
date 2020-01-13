@@ -1,16 +1,14 @@
 # -*- coding: UTF-8 -*-
 import yaml
 import configparser
-from config.cons import DATA_Path
-
-# /Users/test/work/APITestFrameWork/datas/TestData.yaml
+from config.cons import DATA_PATH 
 
 class ReadYaml(object):
   
 
     def __init__(self):
         
-        self.yaml_path=DATA_Path
+        self.yaml_path=DATA_PATH 
         self.conf = configparser.ConfigParser()
 
     @property

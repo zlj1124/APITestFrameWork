@@ -11,7 +11,7 @@ REPORT_DIR = os.path.join(ROOT_DIR, 'report')
 CONF_PATH = os.path.join(ROOT_DIR, 'config', 'config.ini')
 DB_PATH = os.path.join(ROOT_DIR,'config','db.ini')
 # 测试数据所在目录
-DATA_Path = os.path.join(ROOT_DIR, 'datas', 'TestData.yaml')
+DATA_PATH = os.path.join(ROOT_DIR, 'datas', 'TestData.yaml')
 # 当前时间
 CURRENT_TIME = datetime.now().strftime('%H_%M_%S')
 

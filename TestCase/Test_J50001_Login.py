@@ -2,7 +2,10 @@
 import requests
 import unittest
 from common.parameteryaml import ReadYaml
-
+from common.db import DbConnect
+from common.sendhttp import Send_requset
+local_db = DbConnect('jing5DB')
+SH= Send_requset().send_request
 
 
 
@@ -20,14 +23,15 @@ class TestLogin(unittest.TestCase):
 
     def test_a_req_post(self):
         """验证登录接口正常登录"""
-        response = requests.post(self.url, data=self.data_sucess)
+        response =SH('post',self.url, data=self.data_sucess)
         self.assertNotEqual(
             response.json()["token"], "", msg="login failed"
         )
+       
 
     def test_b_req_error(self):
         """验证用户名和密码错误"""
-        response = requests.post(
+        response = SH('post',
             self.url, data=self.data_error
         )
         self.assertEqual(
@@ -36,7 +40,7 @@ class TestLogin(unittest.TestCase):
 
     def test_c_password_null(self):
         """验证密码为空"""
-        response = requests.post(
+        response = SH('post',
             self.url, data=self.data_panull
         )
         self.assertEqual(
@@ -45,7 +49,7 @@ class TestLogin(unittest.TestCase):
 
     def test_d_username_null(self):
         """验证用户名为空"""
-        response = requests.post(
+        response = SH('post',
             self.url, data=self.data_usenull
         )
         self.assertEqual(
@@ -54,7 +58,8 @@ class TestLogin(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
-        pass
+        local_db.close_conn()
+    
 
 
 if __name__ == "__main__":

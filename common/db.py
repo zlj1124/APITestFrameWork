@@ -1,13 +1,14 @@
 # -*- coding:UTF-8 -*-
 import pymysql.cursors
-from config import ReadConfig
-db_msg = ReadConfig()
+# from import ReadConfig
+from common.config import ReadConfig
+db_conf= ReadConfig()
 
 
 class DbConnect(object):  
 
     def __init__(self,section):
-        db_msg=db_msg.get_option_value(section)
+        db_msg=db_conf.get_option_value(section)
         self.connection = pymysql.connect(
             host= db_msg['host'],
             port= int(db_msg['port']),
