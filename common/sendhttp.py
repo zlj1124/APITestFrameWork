@@ -2,6 +2,8 @@
 import requests
 from common.parameteryaml import ReadYaml
 from functools import partial
+from requests.adapters import HTTPAdapter
+
 
 
 
@@ -21,6 +23,9 @@ class Send_requset(object):
             # "Chrome/71.0.3578.98 Safari/537.36"
             }
         self.data_sucess = gt.content["data_sucess"]
+        self.session=requests.Session()
+        self.session.mount('http://', HTTPAdapter(max_retries=3))
+        self.session.mount('https://', HTTPAdapter(max_retries=3))
         
     @property
     def send_request(self):
@@ -28,6 +33,8 @@ class Send_requset(object):
         response = requests.post(url=self.host_path,data=self.data_sucess )
         auth = "JWT " + response.json()["token"]
         self.headers["Authorization"] = auth
-        self.send_http=partial(requests.request,headers=self.headers)
+        # self.send_http=partial(requests.request,headers=self.headers)
+        self.send_http=partial(self.session.request,headers=self.headers,timeout=3)
+
         
         return self.send_http
