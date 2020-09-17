@@ -31,27 +31,21 @@ class TestLogin(unittest.TestCase):
 
     def test_b_req_error(self):
         """验证用户名和密码错误"""
-        response = SH('post',
-            self.url, data=self.data_error
-        )
+        response = SH('post',self.url, data=self.data_error)
         self.assertEqual(
             response.json()["error"], "用户名或者密码有误"
         )
 
     def test_c_password_null(self):
         """验证密码为空"""
-        response = SH('post',
-            self.url, data=self.data_panull
-        )
+        response = SH('post',self.url, data=self.data_panull)
         self.assertEqual(
             response.json()["password"], ["该字段是必填项。"]
         )
 
     def test_d_username_null(self):
         """验证用户名为空"""
-        response = SH('post',
-            self.url, data=self.data_usenull
-        )
+        response = SH('post',self.url, data=self.data_usenull)
         self.assertEqual(
             response.json()["username"], ["该字段是必填项。"]
         )

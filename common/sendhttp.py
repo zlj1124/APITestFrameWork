@@ -4,10 +4,6 @@ from common.parameteryaml import ReadYaml
 from functools import partial
 from requests.adapters import HTTPAdapter
 
-
-
-
-
 class Send_requset(object):
     def __init__(self):
         gt = ReadYaml()
